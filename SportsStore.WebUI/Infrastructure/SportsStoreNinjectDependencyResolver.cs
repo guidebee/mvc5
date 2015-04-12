@@ -9,11 +9,11 @@ using SportsStore.Domain.Entities;
 
 namespace SportsStore.WebUI.Infrastructure
 {
-    public class NinjectDependencyResolver:IDependencyResolver
+    public class SportsStoreNinjectDependencyResolver:IDependencyResolver
     {
         private readonly IKernel _kernel;
 
-        public NinjectDependencyResolver(IKernel kernel)
+        public SportsStoreNinjectDependencyResolver(IKernel kernel)
         {
             _kernel = kernel;
             AddBindings();

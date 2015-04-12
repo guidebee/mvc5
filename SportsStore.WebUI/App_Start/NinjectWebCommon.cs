@@ -1,13 +1,15 @@
 using System;
 using System.Web;
+using System.Web.Mvc;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Ninject;
 using Ninject.Web.Common;
-using Ninject.Web.Mvc;
 using SportsStore.WebUI;
+using SportsStore.WebUI.Infrastructure;
+using WebActivatorEx;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop")]
+[assembly: ApplicationShutdownMethod(typeof(NinjectWebCommon), "Stop")]
 
 namespace SportsStore.WebUI
 {
@@ -61,7 +63,7 @@ namespace SportsStore.WebUI
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            System.Web.Mvc.DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
+            DependencyResolver.SetResolver(new SportsStoreNinjectDependencyResolver(kernel));
         }        
     }
 }
