@@ -15,3 +15,6 @@
     </div>
 }
 
+<div>
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("List",new {Page =x}))
+</div>
