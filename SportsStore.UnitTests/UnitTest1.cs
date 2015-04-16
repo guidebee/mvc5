@@ -15,6 +15,33 @@ namespace SportsStore.UnitTests
     public class UnitTest1
     {
 
+
+        [TestMethod]
+        public void Can_Create_Categories()
+        {
+            Mock<IProductsRepository> mock = new Mock<IProductsRepository>();
+            mock.Setup(m => m.Products).Returns(new Product[]
+            {
+                new Product{ ProductId = 1,Name="P1",Category = "Apples"},
+                new Product{ ProductId = 2,Name="P2",Category = "Apples"},
+                new Product{ ProductId = 3,Name="P3",Category = "Plums"},
+                new Product{ ProductId = 4,Name="P4",Category = "Oranges"},
+      
+            });
+
+            //Arrange - create the controller
+            NavController target=new NavController(mock.Object);
+
+            //Act =get the set of categories
+            string[] results = ((IOrderedEnumerable<string>) target.Menu().Model).ToArray();
+
+            //Assert
+            Assert.AreEqual(results.Length,3);
+            Assert.AreEqual(results[0], "Apples");
+            Assert.AreEqual(results[1], "Oranges");
+            Assert.AreEqual(results[2], "Plums");
+        }
+
         [TestMethod]
         public void Can_Filter_Products()
         {
