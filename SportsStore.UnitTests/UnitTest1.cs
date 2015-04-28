@@ -17,6 +17,33 @@ namespace SportsStore.UnitTests
 
 
         [TestMethod]
+        public void Indicates_Selected_Category()
+        {
+            //Arrange
+            //Create the mock repository
+            Mock<IProductsRepository> mock = new Mock<IProductsRepository>();
+            mock.Setup(m => m.Products).Returns(new Product[]
+            {
+                new Product{ ProductId = 1,Name="P1",Category = "Apples"},
+                new Product{ ProductId = 4,Name="P2",Category = "Oranges"},
+ 
+      
+            });
+
+            //Arrange -- create the controller
+            NavController target =new NavController(mock.Object);
+
+            //Arrange - define the category to selected
+            const string categoryToSelect = "Apples";
+
+            //Action
+            string result = target.Menu(categoryToSelect).ViewBag.SelectedCategory;
+
+            //Assert
+            Assert.AreEqual(categoryToSelect,result);
+        }
+
+        [TestMethod]
         public void Can_Create_Categories()
         {
             Mock<IProductsRepository> mock = new Mock<IProductsRepository>();
